@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Weasley is our King!~</title>
+  
+  <subtitle>Weasley</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://yoursite.com/"/>
+  <updated>2019-04-29T09:34:54.000Z</updated>
+  <id>http://yoursite.com/</id>
+  
+  <author>
+    <name>Sid</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>访问量/阅读次数/字数统计[说明]</title>
+    <link href="http://yoursite.com/3020/04/29/picture/"/>
+    <id>http://yoursite.com/3020/04/29/picture/</id>
+    <published>3020-04-29T09:12:19.000Z</published>
+    <updated>2019-04-29T09:34:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>•┈┈┈┈┈┈୨♡୧┈┈┈┈┈┈•<br>情报有误<br><a id="more"></a><br>✧̣̥̇‧✦‧✧̣̥̇‧✦‧✧̣̥̇‧✦‧✧̣̥̇‧✦‧✧̣̥̇‧✦‧✧̣̥̇‧✦‧✧̣̥̇‧✦</p><p>在测试的时候,每次点击菜单都会计数<br>访问次数统计并没有过滤本狗子的ip</p><p>所以…<br>先这样吧</p><p>阅读次数&amp;字数统计 执行失败</p><p>告辞 ꔛꕤ</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;•┈┈┈┈┈┈୨♡୧┈┈┈┈┈┈•&lt;br&gt;情报有误&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="汪汪汪" scheme="http://yoursite.com/tags/%E6%B1%AA%E6%B1%AA%E6%B1%AA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>监测主从同步是否运行并发邮件</title>
+    <link href="http://yoursite.com/2019/04/28/%E7%9B%91%E6%B5%8B%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E5%B9%B6%E5%8F%91%E9%82%AE%E4%BB%B6/"/>
+    <id>http://yoursite.com/2019/04/28/监测主从同步并发邮件/</id>
+    <published>2019-04-28T09:34:23.000Z</published>
+    <updated>2019-04-29T06:45:58.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•<br><a id="more"></a><br>        #!/bin/bash</p><p>test=$(ps aux |grep “mysql”|grep -v grep)</p><p>time=$(date “+%Y-%m-%d_%H:%M:%S”)</p><p>array=($(mysql -h 主机地址 -u用户 -p密码  -e “show slave status\G”|grep “Running” |awk ‘{print $2}’))</p><p>if [ -n “$array” ]</p><p>then</p><p>echo $time “mysql is running” &gt;&gt;/root/backup/sh/mysqlrunning.log </p><p>echo $time “mysql is running” &gt;&gt;/root/backup/sh/mysqlrunning.txt</p><p>else</p><p>echo $time “mysql stop” &gt;&gt;/root/backup/sh/mysqlrunning.log </p><p>echo $time “mysql stop” &gt;&gt;/root/backup/sh/mysqlrunning.txt</p><p>fi</p><p> if [ “${array[0]}” == “Yes” ] || [ “${array[1]}” == “Yes” ]</p><p>​          then</p><p>​            echo $time “slave is OK” &gt;&gt;/root/backup/sh/mysqlrunning.log</p><p>​             echo $time “slave is OK” &gt;&gt;/root/backup/sh/mysqlrunning.txt</p><p>​       else</p><p>​             echo $time “slave is wrong” &gt;&gt;/root/backup/sh/mysqlrunning.log</p><p>​             echo $time “slave is wrong” &gt;&gt;/root/backup/sh/mysqlrunning.txt </p><p>​            </p><p>​    fi</p><p>mail -s “[2/2]132.148.242.150 [mysqlmaster&amp;salve] $time” 邮箱地址 &lt;/root/backup/sh/mysqlrunning.txt</p><p>rm -rf /root/backup/sh/mysqlrunning.txt</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>mysql数据库定期备份以及删除</title>
+    <link href="http://yoursite.com/2019/04/24/mysql%E5%A4%87%E4%BB%BD%E4%BB%A5%E5%8F%8A%E5%88%A0%E9%99%A4%E8%BF%87%E6%9C%9F%E5%A4%87%E4%BB%BDshell/"/>
+    <id>http://yoursite.com/2019/04/24/mysql备份以及删除过期备份shell/</id>
+    <published>2019-04-24T10:34:23.000Z</published>
+    <updated>2019-04-29T06:45:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•<br><a id="more"></a><br>#!/bin/bash</p><p>mysql_user=”备份账号”</p><p>mysql_password=”数据库密码”</p><p>backup_db_arr=(“数据库名称”) #要备份的数据库名称，多个用空格分开隔开 如(“db1” “db2” “db3”)</p><p>backup_location=/root/backup/backup #备份数据存放位置，末尾请不要带”/“,此项可以保持默认，程序会自动创建文件夹</p><p>expire_backup_delete=”ON” #是否开启过期备份删除 ON为开启 OFF为关闭</p><p>expire_days=7 #过期时间天数 默认为三天，此项只有在expire_backup_delete开启时有效</p><p>welcome_msg=”hello”</p><p>DATE=$(date +%Y-%m-%d_》》%X)</p><p>time=<code>date +%Y-%m-%d_%H:%M:%S</code></p><p>#“+%Y-%m-%d %H:%M:%S”</p><p>backup_time=<code>date +%Y-%m-%d_%H:%M:%S</code> #定义备份详细时间</p><p>backup_Ymd=<code>date +%Y-%m-%d</code> #定义备份目录中的年月日时间</p><p>backup_7ago=<code>date -d</code>7 days ago<code>+%Y%m%d</code>  #7天之前的日期</p><p>backup_dir=$backup_location/$backup_Ymd #备份文件夹全路径</p><p>welcome_msg=”Welcome to use MySQL backup tools!” #欢迎语</p> <!--more--><p># 判断MYSQL是否启动,mysql没有启动则备份退出</p><p>mysql_ps=<code>ps -ef |grep mysql |wc -l</code></p><p>mysql_listen=<code>netstat -an |grep LISTEN |grep $mysql_port|wc -l</code></p><p>if [ [$mysql_ps == 0] -o [$mysql_listen == 0] ];</p><p>then</p><p>echo “ $DATE ERROR:MySQL is not running! backup stop!” &gt;&gt;/root/backup/backup.log</p><p>echo “$time mysql is not running” &gt;&gt;/root/backup/mail.txt</p><p>else</p><p>echo  “$DATE $welcome_msg” &gt;&gt;/root/backup/backup.log</p><p>echo “[$time]”</p><p>fi</p><p> # 判断有没有定义备份的数据库，如果定义则开始备份，否则退出备份</p><p>if [ “$backup_db_arr” != “” ];then</p><p>#dbnames=$(cut -d ‘,’ -f1-5 $backup_database)</p><p>#echo  $DATE “arr is (${backup_db_arr[@]})”</p><p>for dbname in ${backup_db_arr[@]}</p><p>do</p><p>echo  $time “database $dbname backup start…” &gt;&gt;/root/backup/backup.log#写入日志</p><p>echo $time “database $dbname backup start “&gt;&gt;/root/backup/mail.txt#写入邮件日志</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p $backup_dir</span><br><span class="line">mysqldump  -u$mysql_user -p$mysql_password mall | gzip &gt; $backup_dir/$dbname-$time.sql.gz</span><br></pre></td></tr></table></figure><p>flag=<code>echo $?</code></p><p>if [ $flag == “0” ];then</p><p>echo $DATE “database $dbname success backup to $backup_dir/$dbname-$backup_time.sql.gz” &gt;&gt;/root/backup/backup.log</p><p>echo $time “databases success backup “&gt;&gt;/root/backup/mail.txt#写入邮件日志</p><p>else</p><p>echo $DATE “database $dbname backup fail!” &gt;&gt;/root/backup/backup.log</p><p>echo $time “database backup fail”&gt;&gt;/root/backup/mail.txt#写入邮件日志</p><p>fi</p><p>done</p><p>else</p><p>echo $DATE “ERROR:No database to backup! backup stop” &gt;&gt;/root/backup/backup.log</p><p>echo $time “no database to backup”&gt;&gt;/root/backup/mail.txt</p><p>exit</p><p>fi</p><p># 如果开启了删除过期备份，则进行删除操作</p><p>if [ “$expire_backup_delete” == “ON” -a “$backup_location” != “” ];then</p><p>#<code>find $backup_location/ -type d -o -type f -ctime $expire_days -exec rm -rf {} \;</code></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find $backup_location/ -type d -mtime $expire_days | xargs rm -rf</span><br></pre></td></tr></table></figure><p>echo “$DATE Expired backup data delete complete!”&gt;&gt;/root/backup/backup.log</p><p>echo $time “expired backup data delete complete”&gt;&gt;/root/backup/mail.txt</p><p>fi</p><p>echo “$DATE  All database backup success! Thank you!❤️” &gt;&gt;/root/backup/backup.log</p><p>mail -s “[1/2]132.148.242.150 mysqlbackup $time” 邮箱名&lt;/root/backup/mail.txt</p><p>rm -rf /root/backup/mail.txt#删除邮件日志</p><p>exit</p><p>fi</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>脚本安装mysql</title>
+    <link href="http://yoursite.com/2019/04/24/mysql%E8%84%9A%E6%9C%AC%E5%AE%89%E8%A3%85/"/>
+    <id>http://yoursite.com/2019/04/24/mysql脚本安装/</id>
+    <published>2019-04-24T09:34:23.000Z</published>
+    <updated>2019-04-29T06:46:44.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•<br><a id="more"></a></p><pre><code>#!/bin/bash</code></pre><p>echo “正在查找相关mysql程序”<br>mysql1=$(rpm -qa |grep mysql)<br>if [ ! -n “$mysql1” ]; then<br>  echo “服务器没有安装相关mysql程序”<br>else<br>  echo “服务器安装了相关mysql程序，正在卸载。。。”<br>  echo $mysql1<br>  rpm -e –nodeps $mysql1<br>  echo “mysql相关程序卸载完成”<br>fi</p><p>echo “————————————————“</p><p>echo “正在查看相关mariadb程序”<br>mariadb1=$(rpm -qa |grep mariadb)<br>if [ ! -n “$mariadb1” ]; then<br>  echo “服务器没有安装相关mariadb程序”<br>else<br>  echo “服务器安装了相关mariadb程序，正在卸载。。。”<br>  echo $mariadb1<br>  rpm -e –nodeps $mariadb1<br>  echo “mariadb相关程序卸载完成”<br>fi</p><p>echo “————————————————“</p><p>echo “正在检验是否存在mysql相关用户和组”<br>mysqlG=$(nl /etc/group | grep mysql)<br>mysqlS=$(nl /etc/shadow | grep mysql)<br>mysqlU=$(nl /etc/passwd | grep mysql)<br>if [ ! -n “$mysqlU” ]; then<br>  echo “不存在mysql用户”<br>else<br>  echo “存在mysql用户，正在删除。。。”<br>  echo $mysqlU<br>  userdel mysql #这里写死了，待优化<br>  echo “mysql用户删除成功”<br>fi</p><p>echo “————————————————“</p><p>echo “正在查找mysql相关目录”<br>mulu=$(find / -name mysql)<br>if [ ! -n “$mulu” ]; then<br>  echo “无相关mysql目录”<br>else<br>  echo “服务器存在相关mysql目录，正在删除。。。”<br>  echo $mulu<br>  rm -rf $mulu<br>  echo “删除完成！”<br>fi</p><p>echo “————————————————“</p><p>echo “正在查找mysqld.log”<br>MYSQL_LOG=$(find / -name mysqld.log)<br>if [ ! -n “$MYSQL_LOG” ]; then<br>  echo “没找到mysqld.log”<br>else<br>  echo “找到mysqld.log，正在删除。。。”<br>  echo $MYSQL_LOG<br>  rm -rf $MYSQL_LOG<br>  echo “删除完成!”<br>fi</p><p>echo “————————————————“</p><p>read -p “请输入centos的安装范围(只能输入el6或el7):” fanwei<br>if [ “$fanwei” = “el6” ]; then<br>  rpm -ivh mysql-community-common-5.7.21-1.el6.x86_64.rpm mysql-community-libs-5.7.21-1.el6.x86_64.rpm mysql-community-client-5.7.21-1.el6.x86_64.rpm mysql-community-server-5.7.21-1.el6.x86_64.rpm<br>  echo “mysql安装成功”<br>elif [ “$fanwei” = “el7” ]; then<br>  rpm -ivh mysql-community-common-5.7.21-1.el7.x86_64.rpm mysql-community-libs-5.7.21-1.el7.x86_64.rpm mysql-community-client-5.7.21-1.el7.x86_64.rpm mysql-community-server-5.7.21-1.el7.x86_64.rpm<br>  echo “mysql安装成功”<br>  mysql –version</p><p>else<br>  echo “输入错误，再见！”<br>  exit 0<br>fi</p><p>echo “————————————————“</p><p>echo “正在改写/etc/my.cnf”</p><p>aa=”[mysqld]”<br>a=”symbolic-links=0”<br>b=”log-error=/var/log/mysqld.log”<br>c=”pid-file=/var/run/mysqld/mysqld.pid”<br>d=”character_set_server=utf8”<br>e=”skip-name-resolve”<br>f=”lower_case_table_names=1”<br>g=”sql_mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION”<br>h=”[client]”<br>i=”default-character-set=utf8”<br>j=”[mysql]”</p><p>moren1=/var/lib/mysql<br>moren2=/var/lib/mysql/mysql.sock</p><p>read -p “是否需要更改数据存储目录？(y or n)：” yorn<br>if [ “$yorn” = “y” ]; then<br>  echo -e “\033[31m 提示：socket路径在datadir目录下，datadir默认路径/var/lib/mysql，socket默认路径/var/lib/mysql/mysql.sock \033[0m”<br>  read -p “输入datadir路径：” datadir<br>  read -p “输入socket路径：” socketdir<br>  echo $aa &gt; /etc/my.cnf<br>  echo datadir=$datadir &gt;&gt; /etc/my.cnf<br>  echo socket=$socketdir &gt;&gt; /etc/my.cnf<br>  echo $a &gt;&gt; /etc/my.cnf<br>  echo $b &gt;&gt; /etc/my.cnf<br>  echo $c &gt;&gt; /etc/my.cnf<br>  echo $d &gt;&gt; /etc/my.cnf<br>  echo $e &gt;&gt; /etc/my.cnf<br>  echo $f &gt;&gt; /etc/my.cnf<br>  echo $g &gt;&gt; /etc/my.cnf<br>  echo $h &gt;&gt; /etc/my.cnf<br>  echo $i &gt;&gt; /etc/my.cnf<br>  echo $j &gt;&gt; /etc/my.cnf<br>  echo socket=$socketdir &gt;&gt; /etc/my.cnf<br>  echo “写入成功。”<br>elif [ “$yorn” = “n” ]; then<br>  echo “将使用默认路径/var/lib/mysql，/var/lib/mysql/mysql.sock”<br>  echo $aa &gt; /etc/my.cnf<br>  echo datadir=$moren1 &gt;&gt; /etc/my.cnf<br>  echo socket=$moren2 &gt;&gt; /etc/my.cnf<br>  echo $a &gt;&gt; /etc/my.cnf<br>  echo $b &gt;&gt; /etc/my.cnf<br>  echo $c &gt;&gt; /etc/my.cnf<br>  echo $d &gt;&gt; /etc/my.cnf<br>  echo $e &gt;&gt; /etc/my.cnf<br>  echo $f &gt;&gt; /etc/my.cnf<br>  echo $g &gt;&gt; /etc/my.cnf<br>  echo $h &gt;&gt; /etc/my.cnf<br>  echo $i &gt;&gt; /etc/my.cnf<br>  echo $j &gt;&gt; /etc/my.cnf<br>  echo socket=$moren2 &gt;&gt; /etc/my.cnf<br>else<br>  echo “输入错误，拜您个拜!”<br>  exit 0<br>fi</p><p>echo “————————————————“<br>echo “启动mysql”<br>service mysqld restart<br>echo “开始配置mysql”</p><p>HOSTNAME=”localhost”<br>PORT=”3306”<br>USER_NAME=”root”<br>PASSWORD_LOG=$(grep ‘temporary password’ /var/log/mysqld.log)<br>PASSWORD_LOG_NEW=${PASSWORD_LOG##*: }<br>PASSWORD_NEW=”Mysql@123456”<br>echo $PASSWORD_LOG_NEW</p><p>mysql –connect-expired-password -u”$USER_NAME” -p”$PASSWORD_LOG_NEW” &lt;&lt; EOF &gt;/dev/null 2&gt;&amp;1<br>ALTER USER ‘root‘@’localhost’ IDENTIFIED BY ‘$PASSWORD_NEW’;<br>flush privileges;<br>use mysql;<br>update user set host=’%’ where user =’root’ and host=’localhost’;<br>select host,user from user;<br>grant all privileges on <em>.</em> to root@’%’ identified by ‘$PASSWORD_NEW’ with grant option;<br>EOF</p><p>echo -e “\033[31m密码初始化完成，远程功能初始化完成。正在重启mysql\033[0m”<br>service mysqld restart</p><p>echo “————————————————“</p><p>read -p “请输入centos版本便于设置mysql开机自启动(centos6/centos7)” VERSION1<br>if [ “$VERSION1” = “centos6” ]; then<br>chkconfig mysqld on<br>echo “开机自启动设置成功”<br>elif [ “$VERSION1” = “centos7” ]; then<br>systemctl enable mysqld.service<br>echo “开机自启动设置成功”<br>else<br>echo “输入错误，自己手动设置吧!”<br>exit 0<br>fi</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="shell" scheme="http://yoursite.com/tags/shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>👩‍🎤格式</title>
+    <link href="http://yoursite.com/2019/01/01/article-title%E7%9A%84%E5%89%AF%E6%9C%AC/"/>
+    <id>http://yoursite.com/2019/01/01/article-title的副本/</id>
+    <published>2019-01-01T09:34:23.000Z</published>
+    <updated>2019-04-29T07:46:14.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•<br>            Hello<br><a id="more"></a></p><p>/<em> ！！！！！！！！！！<br><strong> 每一项的 : 后面均有一个空格</strong> 且 : 为英文符号<br>** ！！！！！！！！！！</em>/</p><p>title:<br>/<em> 文章标题，可以为中文 </em>/</p><p>date:<br>/<em> 建立日期，如果自己手动添加，请按固定格式<br><strong> 就算不写，页面每篇文章顶部的发表于……也能显示</strong> 只要在主题配置文件中，配置了 created_at 就行<br><strong> 那为什么还要自己加上？</strong> 自定义文章发布的时间</em>/</p><p>updated:<br>/<em> 更新日期，其它与上面的建立日期类似<br><strong> 不过在页面每篇文章顶部，是更新于……</strong> 在主题配置文件中，是 updated_at</em>/</p><p>permalink:<br>/<em> 若站点配置文件下的 permalink 配置了 title<br>** 则可以替换文章 URL 里面的 title（文章标题）</em>/</p><p>categories:<br>/* 分类，支持多级，比如：</p><ul><li>technology</li><li>computer</li><li>computer-aided-art<br>则为technology/computer/computer-aided-art<br>（不适用于 layout: page）<br>*/</li></ul><p>tags:<br>/<em> 标签<br><strong> 多个可以这样写[标签1,标签2,标签3]</strong> （不适用于 layout: page）</em>/</p><p>description:<br>/<em> 文章的描述，在每篇文章标题下方显示<br><strong> 并且作为网页的 description 元数据</strong> 如果不写，则自动取 <!-- more --><br><strong> 之前的文字作为网页的 description 元数据</strong> 建议每篇文章都务必加上！</em>/</p><p>keywords:<br>/<em> 关键字，并且作为网页的 keywords 元数据<br><strong> 如果不写，则自动取 tags 里的项</strong> 作为网页的 keywords 元数据</em>/</p><p>comments:<br>/<em> 是否开启评论<br><strong> 默认值是 true</strong> 要关闭写 false</em>/</p><p>layout:<br>/<em> 页面布局，默认值是 post，默认值可以在<br><strong> 站点配置文件中修改 default_layout</strong> 另：404 页面可能用到，将其值改为 false</em>/</p><p>type:<br>/<em> categories，目录页面<br><strong> tags，标签页面</strong> picture，用来生成 group-pictures<br><strong> quote？</strong> <a href="https://reuixiy.github.io/uncategorized/2010/01/01/test.html" target="_blank" rel="noopener">https://reuixiy.github.io/uncategorized/2010/01/01/test.html</a></em>/</p><p>photos:<br>/* Gallery support，用来支持画廊 / 相册，用法如下：</p><ul><li>photo_url_1</li><li>photo_url_2</li><li>photo_url_3<br><a href="https://reuixiy.github.io/uncategorized/2010/01/01/test.html" target="_blank" rel="noopener">https://reuixiy.github.io/uncategorized/2010/01/01/test.html</a><br>*/</li></ul><p>link:<br>/<em> 文章的外部链接<br>** <a href="https://reuixiy.github.io/uncategorized/2010/01/01/test.html" target="_blank" rel="noopener">https://reuixiy.github.io/uncategorized/2010/01/01/test.html</a></em>/</p><p>image:<br>/<em> 自定义的文章摘要图片，只在页面展示，文章内消失<br>** 此项只有参考本文 5.14 节配置好，否则请勿添加！</em>/</p><p>sticky:<br>/<em> 文章置顶<br>** 此项只有参考本文 5.15 节配置好，否则请勿添加！</em>/</p><p>password:<br>/<em> 文章密码，此项只有参考教程：<br><strong> <a href="http://shenzekun.cn/hexo的next主题个性化配置教程.html" target="_blank" rel="noopener">http://shenzekun.cn/hexo的next主题个性化配置教程.html</a></strong> 第 24 节，配置好，否则请勿添加！<br><strong> 发现还是有 bug 的，就是右键在新标签中打开</strong> 然后无论是否输入密码，都能看到内容</em>/</p><p>我个人的总结</p><p>首先是基础但重要：</p><p>文章内标题请从二级标题（##）开始！<br>英语单词、数字左右看情况加上空格！<br>Markdwon 文档写完一段回车后务必再回车一次空一行！<br>然后如果有些用 Markdwon 的语法却达不到预期效果（甚至产生奇怪的 bugs），或者用 Markdwon 的语法无法实现，这时就可以考虑用 HTML 和 CSS。</p><p>分隔线和空行<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>/<em> 分隔线 </em>/</p><p><hr><br>/<em> 注意事项[6]：在XHTML 中，<hr> 必须被正确地关闭，比如 <hr> </em>/</p><p>/<em> 空行 </em>/<br><br><br>/<em> 注意事项同上 </em>/<br>引用<br>1<br>2<br>3<br>4</p><blockquote>引用内容</blockquote><p>/<em> 如果上下间距很小，可以像下面这样写 </em>/</p><p></p><p><blockquote>引用内容</blockquote></p><br>居中和右对齐<br>1<br>2<br>3<br>4<br>5<br>/<em> 居中 </em>/<p></p><center>内容</center><p>/<em> 右对齐 </em>/</p><p></p><p style="text-align:right">内容</p><br>字体大小和颜色<br>1<br>2<p></p><p><font color="#xxxxxx" size="number">内容</font><br>/<em> 详细请查看 <a href="http://www.w3school.com.cn/tags/tag_font.asp" target="_blank" rel="noopener">http://www.w3school.com.cn/tags/tag_font.asp</a> </em>/<br>Todo list<br>1<br>2<br>3<br>4</p><ul><br><li><i class="fa fa-check-square"></i> 已完成</li><br><li><i class="fa fa-square"></i> 未完成</li><br></ul><p>音乐</p><p>可以直接用 HTML 的标签，写法如下：</p><p>1</p><p>&lt;audio src=”https://什么什么什么.mp3” style=”max-height :100%; max-width: 100%; display: block; margin-lef</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•&lt;br&gt;            Hello&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="test" scheme="http://yoursite.com/tags/test/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>🐣</title>
+    <link href="http://yoursite.com/1919/01/01/article-title/"/>
+    <id>http://yoursite.com/1919/01/01/article-title/</id>
+    <published>1919-01-01T09:34:23.000Z</published>
+    <updated>2019-04-29T06:47:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•<br>            Hello </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;•┈┈┈┈┈┈୨୧┈┈┈┈┈┈•&lt;br&gt;            Hello &lt;/p&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="test" scheme="http://yoursite.com/tags/test/"/>
+    
+  </entry>
+  
+</feed>
